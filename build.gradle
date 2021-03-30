@@ -1,0 +1,83 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '6.1.0' apply false
+    id 'io.freefair.lombok' version '5.3.0' apply false
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group 'com.jwpjrdev.oxide'
+version '0.0.1'
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'base'
+    apply plugin: 'io.freefair.lombok'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+
+        maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/releases/' }
+        maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+        maven { url = 'https://oss.sonatype.org/content/groups/public/' }
+        maven { url = 'https://repo.velocitypowered.com/releases/' }
+        maven { url = 'https://libraries.minecraft.net/' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
+        maven { url = 'https://jitpack.io' }
+    }
+
+    compileJava.options.encoding 'UTF-8'
+
+    processResources {
+        from(sourceSets.main.resources.srcDirs) {
+            expand 'pluginVersion': rootProject.version
+        }
+//        from(sourceSets.main.java.srcDirs) {
+//            expand 'pluginVersion': rootProject.version
+//            into "$buildDir/src"
+//        }
+    }
+}
+
+shadowJar {
+    classifier ''
+    baseName 'oxide'
+
+    // be careful, this doesn't detect reflection
+    minimize()
+}
+
+subprojects {
+    project.group rootProject.group
+    project.version rootProject.version
+    buildDir file("${rootProject.buildDir}/$project.name");
+
+    processResources {
+        doFirst {
+            project.buildDir.listFiles().each {
+                it.delete()
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation project(':spigot-core')
+    implementation project(':spigot-utils')
+    implementation project(':proxy-bungee')
+    implementation project(':proxy-velocity')
+    implementation project(':oxide-common')
+}
+
+/*
+task processSources(type: Sync) {
+    from sourceSets.main.java.srcDirs
+    inputs.property 'version', version
+    filter ReplaceTokens, tokens: [version: version]
+    into "$buildDir/src"
+}
+
+compileJava.source = processSources.outputs
+
+ */

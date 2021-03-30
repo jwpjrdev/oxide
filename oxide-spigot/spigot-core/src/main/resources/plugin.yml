@@ -1,0 +1,6 @@
+name: Oxide
+version: ${pluginVersion}
+main: com.jwpjrdev.oxide.spigot.OxidePlugin
+api-version: 1.16
+authors: [ jwpjr ]
+description: Server management suite for Spigot.

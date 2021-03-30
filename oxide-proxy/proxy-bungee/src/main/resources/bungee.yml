@@ -1,0 +1,4 @@
+name: Oxide
+version: ${pluginVersion}
+main: com.jwpjrdev.oxide.proxy.bungee.OxidePlugin
+description: Server management suite for Spigot.

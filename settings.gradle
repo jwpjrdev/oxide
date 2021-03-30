@@ -1,0 +1,13 @@
+rootProject.name = 'oxide'
+
+include ':oxide-spigot/spigot-core',
+        ':oxide-spigot/spigot-utils',
+        ':oxide-proxy/proxy-bungee',
+        ':oxide-proxy/proxy-velocity',
+        ':oxide-common'
+
+findProject(':oxide-spigot/spigot-core')?.name = 'spigot-core'
+findProject(':oxide-spigot/spigot-utils')?.name = 'spigot-utils'
+findProject(':oxide-proxy/proxy-bungee')?.name = 'proxy-bungee'
+findProject(':oxide-proxy/proxy-velocity')?.name = 'proxy-velocity'
+findProject(':oxide-common')?.name = 'oxide-common'
