@@ -30,9 +30,7 @@ allprojects {
     compileJava.options.encoding 'UTF-8'
 
     processResources {
-        from(sourceSets.main.resources.srcDirs) {
-            expand 'pluginVersion': rootProject.version
-        }
+        expand 'pluginVersion': rootProject.version
 //        from(sourceSets.main.java.srcDirs) {
 //            expand 'pluginVersion': rootProject.version
 //            into "$buildDir/src"
