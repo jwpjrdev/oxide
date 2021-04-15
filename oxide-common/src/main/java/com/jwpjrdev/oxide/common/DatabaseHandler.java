@@ -3,8 +3,6 @@ package com.jwpjrdev.oxide.common;
 import com.jwpjrdev.oxide.common.data.OxideDAO;
 import com.jwpjrdev.oxide.common.data.Repository;
 import com.jwpjrdev.oxide.common.data.converters.UUIDConverter;
-import com.jwpjrdev.oxide.common.data.repos.BanRepository;
-import com.jwpjrdev.oxide.common.data.types.Ban;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -17,12 +15,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * To add a new data type, do the following:
  * 1. Create a new data class in the types subpackage.
  * 2. Create a new repository class in the repos subpackage.
- * 3. Add it to this class.
+ * 3. Add it to the testing constructor.
  */
 @Getter
 public class DatabaseHandler {
@@ -36,6 +36,8 @@ public class DatabaseHandler {
     private final Map<String, OxideDAO<?>> daos;
     @Getter(AccessLevel.NONE)
     private final Map<String, Repository<?>> repositories;
+    
+    private final ExecutorService threadPool;
     
     public DatabaseHandler(MongoCredential credential) {
         this("localhost", credential);
@@ -54,14 +56,16 @@ public class DatabaseHandler {
         this.client = new MongoClient();
         this.morphia = new Morphia();
         
+        // technically mongo has this built-in, but it's here as an example convertor for the convertors package
         this.morphia.getMapper().getConverters().addConverter(new UUIDConverter());
-    
+        
         this.daos = new HashMap<>();
         this.repositories = new HashMap<>();
         
         this.datastore = this.morphia.createDatastore(this.client, credential.getSource());
         this.datastore.ensureIndexes();
         
+        this.threadPool = Executors.newCachedThreadPool();
     }
     
     public <T> void addDAO(String key, OxideDAO<T> dao, Repository<T> repo, Class<T> type) {
@@ -70,6 +74,7 @@ public class DatabaseHandler {
         this.morphia.map(type);
     }
     
+    // These two methods are hacky but they work and they fetch from controlled maps.
     public <T> OxideDAO<T> getDAO(String key, Class<T> type) {
         return (OxideDAO<T>) this.daos.get(key);
     }

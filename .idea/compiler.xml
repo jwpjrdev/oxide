@@ -61,7 +61,7 @@
         <module name="oxide.proxy-velocity.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="14">
+    <bytecodeTargetLevel target="11">
       <module name="oxide.oxide-proxy" target="11" />
       <module name="oxide.oxide-proxy.main" target="11" />
       <module name="oxide.oxide-proxy.test" target="11" />

@@ -1,9 +1,6 @@
 package com.jwpjrdev.oxide.common.data.types;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
@@ -21,7 +18,7 @@ public class Ban {
     @Id
     @Indexed
     @Setter(AccessLevel.NONE)
-    private UUID id = UUID.randomUUID(); // TODO: test
+    private UUID id = UUID.randomUUID();
     @Indexed
     private UUID player; // TODO: reference to User
     @Indexed

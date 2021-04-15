@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public interface Moderatable<T> {
+public interface PlayerControllable<T> {
     
-    CompletableFuture<List<T>> getAllByModerator(UUID moderator);
+    CompletableFuture<List<T>> getAllForPlayer(UUID player);
 }
