@@ -1,7 +1,6 @@
 package com.jwpjrdev.oxide.common;
 
 import com.jwpjrdev.oxide.common.data.OxideDAO;
-import com.jwpjrdev.oxide.common.data.Repository;
 import com.jwpjrdev.oxide.common.data.repos.BanRepository;
 import com.jwpjrdev.oxide.common.data.types.Ban;
 import com.mongodb.MongoCredential;
@@ -9,7 +8,6 @@ import com.mongodb.MongoCredential;
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class Testing {
     

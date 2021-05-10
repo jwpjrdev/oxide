@@ -28,6 +28,7 @@ public class BanRepository extends Repository<Ban>
         this.dao = this.databaseHandler.getDAO("ban", Ban.class);
         System.out.println(this.dao);
         this.cache = this.dao.getCache();
+        System.out.println("BanRepository:" + this.cache);
     }
     
     // TODO: save async and immediately update cache

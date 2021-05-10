@@ -29,6 +29,9 @@ allprojects {
 
     compileJava.options.encoding 'UTF-8'
 
+    compileJava.sourceCompatibility = '1.8'
+    compileJava.targetCompatibility = '1.8'
+
     processResources {
         expand 'pluginVersion': rootProject.version
 //        from(sourceSets.main.java.srcDirs) {
